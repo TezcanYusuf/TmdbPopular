@@ -1,8 +1,10 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-//apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlinx-serialization'
+
 
 android {
     compileSdkVersion 30
@@ -10,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId "com.nextlua.nextluacase"
-        minSdkVersion 21
+        minSdkVersion 22
         targetSdkVersion 30
         versionCode 100000
         versionName "1.0.0"
@@ -35,6 +37,11 @@ android {
     buildFeatures {
         dataBinding true
     }
+
+    androidExtensions {
+        experimental = true
+    }
+
 }
 
 dependencies {
@@ -96,14 +103,19 @@ dependencies {
     //progressbar
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.8'
 
-    //load image
-    implementation 'com.github.bumptech.glide:glide:4.11.0'
-
     //radius imageview
     implementation 'com.google.android.material:material:1.2.0-alpha05'
 
     //paging
     implementation "androidx.paging:paging-runtime:3.0.0-alpha10"
 
+    //GSON
+    implementation 'com.google.code.gson:gson:2.8.7'
+    implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0")
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.4.20"
+
+    //blur image
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
 
 }

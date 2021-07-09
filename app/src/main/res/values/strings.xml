@@ -4,4 +4,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="vote">/10</string>
+    <string name="popularity">Popularity</string>
+    <string name="overview">Overview</string>
+
 </resources>

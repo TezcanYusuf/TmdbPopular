@@ -1,6 +1,5 @@
 package com.nextlua.nextluacase.ui.movies
 
-import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -26,14 +25,12 @@ class MovieListViewModel
         language: String?,
         page: Int?,
     ): LiveData<Resource<MovieIndex>> {
-        return if (true) {
+        return run {
             viewModelScope.launch {
                 movieIndexRepository.getMovieList(apiKey = apiKey, language = language, page = page).collect {
                     movies.postValue(it)
                 }
             }
-            movies
-        } else {
             movies
         }
     }

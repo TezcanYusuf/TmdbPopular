@@ -9,5 +9,15 @@
         android:id="@+id/movieListFragment"
         android:name="com.nextlua.nextluacase.ui.movies.MovieListFragment"
         android:label="fragment_movie_list"
-        tools:layout="@layout/fragment_movie_list" />
+        tools:layout="@layout/fragment_movie_list" >
+        <action
+            android:id="@+id/action_movieListFragment_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/movieDetailFragment"
+        android:name="com.nextlua.nextluacase.ui.detail.MovieDetailFragment"
+        android:label="fragment_movie_detail"
+        tools:layout="@layout/fragment_movie_detail" />
 </navigation>
