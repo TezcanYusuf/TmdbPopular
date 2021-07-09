@@ -30,5 +30,4 @@ class MovieIndexRepository @Inject constructor(
             emit(Resource.error(it.localizedMessage, null))
         }.flowOn(Dispatchers.IO)
     }
-
 }

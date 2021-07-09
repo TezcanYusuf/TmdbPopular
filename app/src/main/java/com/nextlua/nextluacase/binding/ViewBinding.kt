@@ -16,24 +16,6 @@ fun setMovieImage(imageView: AppCompatImageView, url: String?) {
     }
     Glide.with(imageView.context)
         .load(imageUrl)
-
         .timeout(15000)
         .into(imageView)
 }
-//
-//@SuppressLint("CheckResult")
-//@BindingAdapter("movie_image_blur")
-//fun setBlurImage(imageView: AppCompatImageView, url: String?) {
-//    var imageUrl = url
-//    imageUrl = if (url == null) {
-//        Urls.DEFAULT_IMAGE_URL
-//    } else {
-//        Urls.BASE_IMAGE_URL + imageUrl
-//    }
-//    Glide.with(imageView.context)
-//        .load(imageUrl)
-//        .apply(bitmapTransform(BlurTransformation(25, 3)))
-//        .timeout(15000)
-//        .into(imageView)
-//
-//}

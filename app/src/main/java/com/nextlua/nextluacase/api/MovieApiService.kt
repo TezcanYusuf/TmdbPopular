@@ -11,5 +11,5 @@ interface MovieApiService {
         @Query("api_key") apiKey: String?,
         @Query("language") language: String?,
         @Query("page") page: Int?,
-        ): MovieIndex
+    ): MovieIndex
 }

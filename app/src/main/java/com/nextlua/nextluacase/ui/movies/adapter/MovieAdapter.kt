@@ -10,7 +10,10 @@ import com.nextlua.nextluacase.R
 import com.nextlua.nextluacase.listener.IListener
 import com.nextlua.nextluacase.models.Result
 
-class MovieAdapter(val data: List<Result>, private val myClickListener: IListener) : RecyclerView.Adapter<CategoryHolder>() {
+class MovieAdapter(
+    val data: List<Result>,
+    private val myClickListener: IListener) :
+    RecyclerView.Adapter<CategoryHolder>() {
 
     val dataSource = data
     override fun onBindViewHolder(holder: CategoryHolder, position: Int) {

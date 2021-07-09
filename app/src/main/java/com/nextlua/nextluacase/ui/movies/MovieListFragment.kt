@@ -21,7 +21,8 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
-class MovieListFragment : BaseFragment<FragmentMovieListBinding>(R.layout.fragment_movie_list), IListener {
+class MovieListFragment : BaseFragment<FragmentMovieListBinding>(R.layout.fragment_movie_list),
+    IListener {
 
     private val movieViewModel: MovieListViewModel by navGraphViewModels(R.id.navigaton_tmdb) {
         defaultViewModelProviderFactory
@@ -40,10 +41,8 @@ class MovieListFragment : BaseFragment<FragmentMovieListBinding>(R.layout.fragme
         } else {
             getMoviesList(MainActivity.sharedObject.pageNumber)
         }
-        Log.e("MovieListFragment", "asdasd")
 
         nextPageListener()
-
     }
 
     private fun nextPageListener() {
@@ -51,23 +50,24 @@ class MovieListFragment : BaseFragment<FragmentMovieListBinding>(R.layout.fragme
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
 
+                val currentPageNumber = MainActivity.sharedObject.pageNumber
                 if (!recyclerView.canScrollVertically(1)) {
-                    val currentPageNumber = MainActivity.sharedObject.pageNumber
                     if (totalPage != 0 && currentPageNumber + 1 < totalPage) {
-                        getMoviesList( currentPageNumber + 1)
+                        getMoviesList(currentPageNumber + 1)
                         MainActivity.sharedObject.pageNumber = currentPageNumber + 1
-                        Log.e("Nextt", "Pageeee" + totalPage.toString())
                     }
                 } else {
-                    Log.e("Başa dön", "bir önceki sayfaya")
+                    if (currentPageNumber != 1 && currentPageNumber != 0) {
+                        getMoviesList(currentPageNumber - 1)
+                        MainActivity.sharedObject.pageNumber = currentPageNumber - 1
+                        Log.e("Başa dön", "bir önceki sayfaya")
+                    }
                 }
             }
         })
     }
 
     private fun getMoviesList(page: Int) {
-        Log.e("PageNumber :", page.toString())
-
         movieViewModel.getMovies(
             apiKey = Keys.apiKey,
             language = Keys.languageKey,
@@ -76,11 +76,11 @@ class MovieListFragment : BaseFragment<FragmentMovieListBinding>(R.layout.fragme
 
             when (it.status) {
                 Status.SUCCESS -> {
-                    Log.e("Data", it.data.toString())
                     totalPage = it.data?.totalPages!!
                     val layoutManager = GridLayoutManager(requireContext(), 2)
                     binding.gvMovies.layoutManager = layoutManager
-                    binding.gvMovies.adapter = it.data.results?.let { it1 -> MovieAdapter(it1, this) }
+                    binding.gvMovies.adapter =
+                        it.data.results?.let { it1 -> MovieAdapter(it1, this) }
                     moviesData = it.data.results as MutableList<Result>
                 }
                 Status.LOADING -> {
@@ -92,20 +92,10 @@ class MovieListFragment : BaseFragment<FragmentMovieListBinding>(R.layout.fragme
         })
     }
 
-
     override fun onClick(position: Int) {
-        Log.e("Click", "clickkk" + position.toString())
-        moviesData
-        Log.e("Data::", moviesData[position].toString())
         val bundle = Bundle().apply {
-            putParcelable(Keys.movieNameKey, moviesData[position])
+            putParcelable(Keys.movieKey, moviesData[position])
         }
         navigateSafe(resId = R.id.action_movieListFragment_to_movieDetailFragment, bundle = bundle)
     }
-
-    override fun onResume() {
-        super.onResume()
-
-    }
-
 }

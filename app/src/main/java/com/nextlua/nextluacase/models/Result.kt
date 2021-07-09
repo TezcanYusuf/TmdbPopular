@@ -40,4 +40,4 @@ data class Result(
     val voteAverage: Double? = 0.0,
     @JsonProperty("vote_count")
     val voteCount: Int? = 0
-): Parcelable
+) : Parcelable

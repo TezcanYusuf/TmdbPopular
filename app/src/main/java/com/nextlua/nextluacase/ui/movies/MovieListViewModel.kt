@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.nextlua.nextluacase.enums.Status
 import com.nextlua.nextluacase.models.MovieIndex
 import com.nextlua.nextluacase.repository.MovieIndexRepository
 import com.nextlua.nextluacase.resources.Resource
@@ -27,12 +28,14 @@ class MovieListViewModel
     ): LiveData<Resource<MovieIndex>> {
         return run {
             viewModelScope.launch {
-                movieIndexRepository.getMovieList(apiKey = apiKey, language = language, page = page).collect {
-                    movies.postValue(it)
-                }
+                movieIndexRepository.getMovieList(apiKey = apiKey, language = language, page = page)
+                    .collect {
+                        if (it.status == Status.SUCCESS) {
+                            movies.postValue(it)
+                        }
+                    }
             }
             movies
         }
     }
-
 }
