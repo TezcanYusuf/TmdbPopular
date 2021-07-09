@@ -128,7 +128,11 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1"
     implementation "org.jetbrains.kotlin:kotlin-reflect:1.4.20"
 
-    //blur image
+    //image load glide
     implementation 'com.github.bumptech.glide:glide:4.11.0'
+
+    //circleimageview
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
 
 }
