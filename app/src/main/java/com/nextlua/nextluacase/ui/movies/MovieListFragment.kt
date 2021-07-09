@@ -56,13 +56,8 @@ class MovieListFragment : BaseFragment<FragmentMovieListBinding>(R.layout.fragme
                         getMoviesList(currentPageNumber + 1)
                         MainActivity.sharedObject.pageNumber = currentPageNumber + 1
                     }
-                } else {
-                    if (currentPageNumber != 1 && currentPageNumber != 0) {
-                        getMoviesList(currentPageNumber - 1)
-                        MainActivity.sharedObject.pageNumber = currentPageNumber - 1
-                        Log.e("Başa dön", "bir önceki sayfaya")
-                    }
                 }
+                binding.pageCurrent.text = MainActivity.sharedObject.pageNumber.toString()
             }
         })
     }
@@ -77,6 +72,7 @@ class MovieListFragment : BaseFragment<FragmentMovieListBinding>(R.layout.fragme
             when (it.status) {
                 Status.SUCCESS -> {
                     totalPage = it.data?.totalPages!!
+                    binding.pageTotal.text = "/$totalPage"
                     val layoutManager = GridLayoutManager(requireContext(), 2)
                     binding.gvMovies.layoutManager = layoutManager
                     binding.gvMovies.adapter =
@@ -97,5 +93,10 @@ class MovieListFragment : BaseFragment<FragmentMovieListBinding>(R.layout.fragme
             putParcelable(Keys.movieKey, moviesData[position])
         }
         navigateSafe(resId = R.id.action_movieListFragment_to_movieDetailFragment, bundle = bundle)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.pageCurrent.text = MainActivity.sharedObject.pageNumber.toString()
     }
 }

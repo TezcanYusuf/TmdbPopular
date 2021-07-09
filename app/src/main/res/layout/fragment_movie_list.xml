@@ -34,6 +34,32 @@
             app:layout_constraintStart_toEndOf="@+id/profile_image"
             app:layout_constraintTop_toTopOf="@+id/profile_image" />
 
+        <TextView
+            android:id="@+id/page_total"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:gravity="left"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:maxLines="1"
+            android:textColor="@color/transparent_gray"
+            android:textSize="@dimen/_13sdp"
+            app:layout_constraintBottom_toTopOf="@+id/gv_movies"
+            app:layout_constraintEnd_toEndOf="@+id/gv_movies" />
+
+        <TextView
+            android:id="@+id/page_current"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_30sdp"
+            android:gravity="center"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:maxLines="1"
+            android:text="1"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_18sdp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/page_total"
+            app:layout_constraintEnd_toStartOf="@+id/page_total" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/gv_movies"
             android:layout_width="match_parent"
