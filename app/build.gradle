@@ -42,6 +42,19 @@ android {
         experimental = true
     }
 
+
+    productFlavors {
+        dev {
+            flavorDimensions "default"
+            resValue "string", "override_name", "Free Version"
+        }
+
+        prod {
+            flavorDimensions "default"
+            resValue "string", "override_name", "Pro Version"
+        }
+    }
+
 }
 
 dependencies {
