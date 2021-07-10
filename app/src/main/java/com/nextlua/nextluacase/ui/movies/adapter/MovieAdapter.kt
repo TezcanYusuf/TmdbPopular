@@ -15,7 +15,6 @@ class MovieAdapter(
     private val myClickListener: IListener) :
     RecyclerView.Adapter<CategoryHolder>() {
 
-    val dataSource = data
     override fun onBindViewHolder(holder: CategoryHolder, position: Int) {
         holder.bind(data[position])
     }
