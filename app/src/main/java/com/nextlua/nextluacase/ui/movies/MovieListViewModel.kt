@@ -19,6 +19,8 @@ class MovieListViewModel
     private val movieIndexRepository: MovieIndexRepository
 ) : ViewModel() {
 
+    var page: Int = 0
+
     private val movies: MutableLiveData<Resource<MovieIndex>> = MutableLiveData()
 
     fun getMovies(

@@ -29,17 +29,16 @@ class MovieListFragment : BaseFragment<FragmentMovieListBinding>(R.layout.fragme
     }
 
     private lateinit var moviesData: MutableList<Result>
-    private lateinit var movieAdapter: MovieAdapter
     var totalPage = 0
 
     override fun FragmentMovieListBinding.initialize() {
 
-        val pageNumber = MainActivity.sharedObject.pageNumber
+        val pageNumber = movieViewModel.page
         if (pageNumber == 0) {
             getMoviesList(1)
-            MainActivity.sharedObject.pageNumber = 1
+            movieViewModel.page = 1
         } else {
-            getMoviesList(MainActivity.sharedObject.pageNumber)
+            getMoviesList(movieViewModel.page)
         }
 
         nextPageListener()
@@ -50,14 +49,14 @@ class MovieListFragment : BaseFragment<FragmentMovieListBinding>(R.layout.fragme
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
 
-                val currentPageNumber = MainActivity.sharedObject.pageNumber
+                val currentPageNumber = movieViewModel.page
                 if (!recyclerView.canScrollVertically(1)) {
                     if (totalPage != 0 && currentPageNumber + 1 < totalPage) {
                         getMoviesList(currentPageNumber + 1)
-                        MainActivity.sharedObject.pageNumber = currentPageNumber + 1
+                        movieViewModel.page = currentPageNumber + 1
                     }
                 }
-                binding.pageCurrent.text = MainActivity.sharedObject.pageNumber.toString()
+                binding.pageCurrent.text = movieViewModel.page.toString()
             }
         })
     }
@@ -97,6 +96,6 @@ class MovieListFragment : BaseFragment<FragmentMovieListBinding>(R.layout.fragme
 
     override fun onResume() {
         super.onResume()
-        binding.pageCurrent.text = MainActivity.sharedObject.pageNumber.toString()
+        binding.pageCurrent.text = movieViewModel.page.toString()
     }
 }
